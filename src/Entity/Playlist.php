@@ -1,104 +1,110 @@
 <?php
 
-    namespace App\Entity;
+namespace App\Entity;
 
-    use App\Repository\PlaylistRepository;
-    use Doctrine\Common\Collections\ArrayCollection;
-    use Doctrine\Common\Collections\Collection;
-    use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlaylistRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=PlaylistRepository::class)
+ */
+class Playlist
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
     /**
-     * @ORM\Entity(repositoryClass=PlaylistRepository::class)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    class Playlist
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="playlist")
+     */
+    private $formations;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbFormations;
+
+    public function __construct()
     {
-        /**
-         * @ORM\Id
-         * @ORM\GeneratedValue
-         * @ORM\Column(type="integer")
-         */
-        private $id;
+        $this->nbFormations = $this->getFormations();
+        $this->formations = new ArrayCollection();
+    }
 
-        /**
-         * @ORM\Column(type="string", length=100, nullable=true)
-         */
-        private $name;
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-        /**
-         * @ORM\Column(type="text", nullable=true)
-         */
-        private $description;
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-        /**
-         * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="playlist")
-         */
-        private $formations;
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
-        public function __construct()
-        {
-            $this->formations = new ArrayCollection();
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Formation>
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
+            $formation->setPlaylist($this);
         }
 
-        public function getId(): ?int
-        {
-            return $this->id;
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formations->removeElement($formation) && $formation->getPlaylist() === $this) {
+            $formation->setPlaylist(null);
         }
 
-        public function getName(): ?string
-        {
-            return $this->name;
-        }
+        return $this;
+    }
 
-        public function setName(?string $name): self
-        {
-            $this->name = $name;
-
-            return $this;
-        }
-
-        public function getDescription(): ?string
-        {
-            return $this->description;
-        }
-
-        public function setDescription(?string $description): self
-        {
-            $this->description = $description;
-
-            return $this;
-        }
-
-        /**
-         * @return Collection<int, Formation>
-         */
-        public function getFormations(): Collection
-        {
-            return $this->formations;
-        }
-
-        public function addFormation(Formation $formation): self
-        {
-            if (!$this->formations->contains($formation)) {
-                $this->formations[] = $formation;
-                $formation->setPlaylist($this);
-            }
-
-            return $this;
-        }
-
-        public function removeFormation(Formation $formation): self
-        {
-           if ($this->formations->removeElement($formation) && $formation->getPlaylist() === $this) {
-                 $formation->setPlaylist(null);
-            }
-
-
-            return $this;
-        }
-
-        /**
-         * @return Collection<int, string>
-         */
+    /**
+     * @return Collection<int, string>
+     */
     public function getCategoriesPlaylist(): Collection
     {
         $categories = new ArrayCollection();
@@ -112,8 +118,21 @@
             }
         }
 
-            return $categories;
-        }
-
-
+        return $categories;
     }
+
+  
+    
+
+    public function getNbFormations(): ?int
+    {
+        return $this->nbFormations;
+    }
+
+    public function setNbFormations(?int $nbFormations): self
+    {
+        $this->nbFormations = $nbFormations;
+
+        return $this;
+    }
+}

@@ -90,8 +90,19 @@
                     ->getResult();
             }
         }
-
-
-
-
+        
+        /**
+        * Retourne toutes les playlists triées par le nombre de formations
+        * @param string $ordre
+        * @return Playlist[]
+        */
+       public function findAllOrderByNbFormations($ordre): array
+       {
+           return $this->createQueryBuilder('p')
+               ->leftJoin('p.formations', 'f') 
+               ->groupBy('p.id') 
+               ->orderBy('COUNT(f.id)', $ordre) 
+               ->getQuery()
+               ->getResult();
+       }
     }
