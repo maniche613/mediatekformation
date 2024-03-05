@@ -35,14 +35,10 @@ class Playlist
     private $formations;
 
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nbFormations;
+
 
     public function __construct()
     {
-        $this->nbFormations = $this->getFormations();
         $this->formations = new ArrayCollection();
     }
 
@@ -75,7 +71,7 @@ class Playlist
         return $this;
     }
 
-    /**
+     /**
      * @return Collection<int, Formation>
      */
     public function getFormations(): Collection
@@ -124,15 +120,4 @@ class Playlist
   
     
 
-    public function getNbFormations(): ?int
-    {
-        return $this->nbFormations;
-    }
-
-    public function setNbFormations(?int $nbFormations): self
-    {
-        $this->nbFormations = $nbFormations;
-
-        return $this;
-    }
 }
