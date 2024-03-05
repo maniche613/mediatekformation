@@ -55,4 +55,19 @@ class CategorieRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
+    
+   /**
+     * Enregistrements dont un champ est égal à une valeur
+     * ou tous les enregistrements si la valeur est vide
+     * @param type $name
+     * @return Categorie[]
+     */
+    public function findAllEqual($name) : array {
+            return $this->createQueryBuilder('c') 
+                    ->select('c.name name')
+                    ->where('c.name=:name')
+                    ->setParameter('name', $name)
+                    ->getQuery()
+                    ->getResult();
+    }
 }
