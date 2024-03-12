@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author emds
  */
 class FormationsController extends AbstractController {
+    
     public $formationRoute = "pages/formations.html.twig";
 
     /**
