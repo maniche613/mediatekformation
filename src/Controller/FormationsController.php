@@ -24,11 +24,16 @@ class FormationsController extends AbstractController {
     private $formationRepository;
     
     /**
-     * 
+     * Création du constructeur
      * @var CategorieRepository
      */
     private $categorieRepository;
     
+    /**
+     * Création du constructeur
+     * @param FormationRepository $formationRepository
+     * @param CategorieRepository $categorieRepository
+     */
     public function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository)
     {
         $this->formationRepository = $formationRepository;
@@ -36,6 +41,7 @@ class FormationsController extends AbstractController {
     }
     
     /**
+     * Création de la route vers la page des formations
      * @Route("/formations", name="formations")
      * @return Response
      */
@@ -49,6 +55,7 @@ class FormationsController extends AbstractController {
     }
 
     /**
+     * Tri les enregistrements selon le $champ et la $valeur
      * @Route("/formations/tri/{champ}/{ordre}/{table}", name="formations.sort")
      * @param type $champ
      * @param type $ordre
@@ -65,6 +72,7 @@ class FormationsController extends AbstractController {
     }     
     
     /**
+     * Récupère les enregistrements selon le $champ et la $valeur
      * @Route("/formations/recherche/{champ}/{table}", name="formations.findallcontain")
      * @param type $champ
      * @param Request $request
@@ -84,6 +92,7 @@ class FormationsController extends AbstractController {
     }  
     
     /**
+     * Récupère les enregistrements des formations individuelles
      * @Route("/formations/formation/{id}", name="formations.showone")
      * @param type $id
      * @return Response

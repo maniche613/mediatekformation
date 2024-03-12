@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of FormationsControllerTest
+ * test du controleur des formations
  *
  * @author hmagn
  */

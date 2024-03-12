@@ -11,7 +11,7 @@
     use Symfony\Component\Routing\Annotation\Route;
 
     /**
-     * Description of PlaylistsController
+     * controleur des playlists
      *
      * @author emds
      */
@@ -35,7 +35,13 @@
          * @var CategorieRepository
          */
         private $categorieRepository;
-
+        
+        /**
+         * Création du constructeur
+         * @param PlaylistRepository $playlistRepository
+         * @param CategorieRepository $categorieRepository
+         * @param FormationRepository $formationRespository
+         */
         public function __construct(PlaylistRepository $playlistRepository, CategorieRepository $categorieRepository, FormationRepository $formationRespository)
         {
             $this->playlistRepository = $playlistRepository;
@@ -44,6 +50,7 @@
         }
 
         /**
+         * Création de la route vers la page des playlists
          * @Route("/playlists", name="playlists")
          * @return Response
          */
@@ -62,6 +69,7 @@
         }
         
         /**
+         * Tri les enregistrements selon le $champ "name" et l'ordre
          * @Route("/playlists/tri/{champ}/{ordre}", name="playlists.sort")
          * @param type $champ
          * @param type $ordre
@@ -92,6 +100,7 @@
 
 
         /**
+         * Récupère les enregistrements selon le $champ et la $valeur
          * @Route("/playlists/recherche/{champ}/{table}", name="playlists.findallcontain")
          * @param type $champ
          * @param Request $request
@@ -112,6 +121,7 @@
         }
 
         /**
+         * Récupère les enregistrements des playlists individuelles
          * @Route("/playlists/playlist/{id}", name="playlists.showone")
          * @param type $id
          * @return Response

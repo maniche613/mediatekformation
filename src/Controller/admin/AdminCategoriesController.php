@@ -42,6 +42,7 @@ class AdminCategoriesController extends AbstractController{
     
     
    /**
+    * Création de la route vers la page admin des catégories
     *@Route("/admin/categorie", name="admin.categorie")
     *@return Response
     */

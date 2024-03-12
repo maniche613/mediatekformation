@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of AcceuilControllerTest
+ * Test du controleur de l'accueil
  *
  * @author hmagn
  */
